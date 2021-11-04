@@ -14,10 +14,13 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
+    "@vitejs/plugin-vue-jsx": "^1.2.0",
     "axios": "^0.21.1",
+    "element-plus": "^1.2.0-beta.1",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
     "vite-plugin-mock": "^2.9.6",
+    "vite-plugin-windicss": "^1.4.12",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
   },

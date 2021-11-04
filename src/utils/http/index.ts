@@ -80,12 +80,12 @@ const transform: AxiosTransform = {
       return res.data
     }
 
-    const result = res.data
-    if (!result) {
+    if (!res || !res.data) {
       // return '[HTTP] Request has no return value';
       throw new Error('请求失败')
     }
     //  这里 code，data，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
+    const result = res.data
     const { code, data } = result
 
     // 这里逻辑可以根据项目进行修改
