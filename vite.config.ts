@@ -1,14 +1,22 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { viteMockServe } from 'vite-plugin-mock'
 import { resolve } from 'path'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
 }
+// https://www.npmjs.com/package/vite-plugin-mock
+export function configMockPlugin() {
+  return viteMockServe({
+    ignore: /^\_/,
+    mockPath: 'mock'
+  })
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), configMockPlugin()],
   resolve: {
     alias: [
       // /@/xxxx => src/xxxx

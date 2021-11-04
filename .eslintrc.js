@@ -26,6 +26,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/ban-ts-comment': 'off', // 允许使用@ts-ignore
     '@typescript-eslint/ban-types': 'off',
+    'no-useless-escape': 'off',
     'prettier/prettier': ['off', { singleQuote: true }]
     // '@typescript-eslint/no-unused-vars': 'off' // 是否检查未使用变量
   },
