@@ -22,30 +22,24 @@ const text = ref(t('sys.login.loginButton'))
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" class="ml-4" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-  <router-link to="/page1">页面1</router-link>
-  <router-link to="/page2">页面2</router-link>
   <router-view></router-view>
-  <div @click="toLogin">
-    <h1>测试接口</h1>
-  </div>
-
-  <div>测试：i18n + vuex</div>
-  <div>
-    <el-button type="primary" @click="toggleLocales()">切换中文</el-button>
-    <span>{{ localeStore.$state.localeInfo.locale }}</span>
-    <el-button type="primary">{{ text }}</el-button>
-  </div>
 </template>
 
 <style>
+body {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: visible !important;
+  overflow-x: hidden !important;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  height: 100%;
 }
 </style>

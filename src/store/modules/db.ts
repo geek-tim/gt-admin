@@ -1,5 +1,6 @@
 import { database as getDatabase, dbGet, dbSet } from '/@/utils/cache/db'
 import { defineStore } from 'pinia'
+import { store } from '/@/store'
 
 export const useDbStore = defineStore({
   id: 'app-db',
@@ -13,7 +14,7 @@ export const useDbStore = defineStore({
      * @param {Object} payload value {*} 需要存储的值
      * @param {Object} payload user {Boolean} 是否区分用户
      */
-    set({ dbName = 'database', path = '', value = '', user = false }) {
+    set({ dbName = 'database', path = '', value, user = false }) {
       dbSet({ dbName, path, value, user })
     },
     /**
@@ -53,3 +54,8 @@ export const useDbStore = defineStore({
     }
   }
 })
+
+// Need to be used outside the setup
+export function useDbStoreWithOut() {
+  return useDbStore(store)
+}

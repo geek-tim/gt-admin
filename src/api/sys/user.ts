@@ -23,3 +23,7 @@ export function loginApi(
     }
   )
 }
+
+export function doLogout() {
+  return http.get({ url: Api.Logout })
+}

@@ -44,9 +44,9 @@ export const useLocaleStore = defineStore({
   },
   actions: {
     setLocale(info: Partial<LocaleSetting>) {
-      const db = useDbStore()
+      const dbStore = useDbStore()
       this.localeInfo = { ...this.localeInfo, ...info }
-      db.set({
+      dbStore.set({
         dbName: 'sys',
         path: 'localeInfo.locale',
         value: info.locale,
