@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <h1>我是页面1的内容</h1>
+    <h1>欢迎来到首页!!!</h1>
   </div>
 </template>
 <script>
