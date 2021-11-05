@@ -14,7 +14,7 @@ async function toLogin() {
 const { t } = useI18n()
 const localeStore = useLocaleStore()
 function toggleLocales() {
-  localeStore.setLocale('en')
+  localeStore.setLocale({ locale: 'en' })
   location.reload()
 }
 
@@ -34,7 +34,7 @@ const text = ref(t('sys.login.loginButton'))
   <div>测试：i18n + vuex</div>
   <div>
     <el-button type="primary" @click="toggleLocales()">切换中文</el-button>
-    <span>{{ localeStore.$state.locale }}</span>
+    <span>{{ localeStore.$state.localeInfo.locale }}</span>
     <el-button type="primary">{{ text }}</el-button>
   </div>
 </template>

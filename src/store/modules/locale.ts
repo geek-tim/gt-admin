@@ -1,23 +1,57 @@
 import { defineStore } from 'pinia'
 import { store } from '/@/store'
+import { useDbStore } from './db'
+export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
+
+export interface LocaleSetting {
+  showPicker: boolean
+  // Current language
+  locale: LocaleType
+  // default language
+  fallback: LocaleType
+  // available Locales
+  availableLocales: LocaleType[]
+}
+
+export const LOCALE: { [key: string]: LocaleType } = {
+  ZH_CN: 'zh_CN',
+  EN_US: 'en'
+}
+
+export const localeSetting: LocaleSetting = {
+  showPicker: true,
+  // Locale
+  locale: LOCALE.ZH_CN,
+  // Default locale
+  fallback: LOCALE.ZH_CN,
+  // available Locales
+  availableLocales: [LOCALE.ZH_CN, LOCALE.EN_US]
+}
 
 interface LocaleState {
-  locale: string
+  localeInfo: LocaleSetting
 }
 
 export const useLocaleStore = defineStore({
   id: 'app-locale',
   state: (): LocaleState => ({
-    locale: 'zh-CN'
+    localeInfo: localeSetting
   }),
   getters: {
-    getLocale(state): string {
-      return state.locale || 'zh-CN'
+    getLocale(): LocaleType {
+      return this.localeInfo?.locale ?? 'zh_CN'
     }
   },
   actions: {
-    setLocale(locale) {
-      this.locale = locale
+    setLocale(info: Partial<LocaleSetting>) {
+      const db = useDbStore()
+      this.localeInfo = { ...this.localeInfo, ...info }
+      db.set({
+        dbName: 'sys',
+        path: 'localeInfo.locale',
+        value: info.locale,
+        user: true
+      })
     }
   }
 })
