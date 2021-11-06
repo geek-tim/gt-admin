@@ -25,6 +25,5 @@ export function genMessage(
       }
     }
   })
-  console.log(obj)
   return obj
 }

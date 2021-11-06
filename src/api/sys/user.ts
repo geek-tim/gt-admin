@@ -1,5 +1,9 @@
 import { http } from '/@/utils/http'
-import { LoginParamsModel, LoginResultModel } from './model/userModel'
+import {
+  LoginParamsModel,
+  LoginResultModel,
+  GetUserInfoModel
+} from './model/userModel'
 import { ErrorMessageMode } from '/#/axios'
 
 enum Api {
@@ -26,4 +30,11 @@ export function loginApi(
 
 export function doLogout() {
   return http.get({ url: Api.Logout })
+}
+
+/**
+ * @description: getUserInfo
+ */
+export function getUserInfo() {
+  return http.get<GetUserInfoModel>({ url: Api.GetUserInfo })
 }

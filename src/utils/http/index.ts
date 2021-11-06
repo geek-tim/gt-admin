@@ -1,8 +1,9 @@
 import { VAxios } from './Axios'
 import type { AxiosResponse } from 'axios'
 import { isString } from '/@/utils/is'
+import cookies from '/@/utils/cache/cookies'
 import { joinTimestamp, joinObjParams2Url } from '/@/utils/helper'
-
+import { useI18n } from '/@/hooks/web/useI18n'
 // 设计具体业务相关接口形式
 import type { CreateAxiosOptions, AxiosTransform } from './AixosTransform'
 
@@ -86,17 +87,37 @@ const transform: AxiosTransform = {
     }
     //  这里 code，data，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const result = res.data
-    const { code, data } = result
+    const { code, data, message } = result
 
     // 这里逻辑可以根据项目进行修改
     const hasSuccess = result && Reflect.has(result, 'code') && code === 0
     if (hasSuccess) {
       return data
     }
+
+    let timeoutMsg = ''
+    switch (code) {
+      // timeout
+      // 特殊编码异常 视业务具体情况处理
+      default:
+        if (message) {
+          timeoutMsg = message
+        }
+    }
+    // TODO
+    // options.errorMessageMode: 弹窗提示 or toast
+    const { t } = useI18n()
+    throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'))
   },
 
   requestInterceptors: (config, options) => {
-    // 这里处理config修改
+    const token = cookies.get('token')
+    if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
+      // jwt token
+      config.headers.Authorization = options.authenticationScheme
+        ? `${options.authenticationScheme} ${token}`
+        : token
+    }
     return config
   },
   /**

@@ -6,6 +6,7 @@ import type { RequestOptions, Result } from '/#/axios'
 
 // 扩展AxiosRequestConfig
 export interface CreateAxiosOptions extends AxiosRequestConfig {
+  authenticationScheme?: string // 如格式: bear token
   urlPrefix?: string
   transform?: AxiosTransform // 转换的方法
   requestOptions?: RequestOptions

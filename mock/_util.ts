@@ -69,3 +69,10 @@ export function getRequestToken({
 }: requestParams): string | undefined {
   return headers?.authorization
 }
+
+export interface requestParams {
+  method: string
+  body: any
+  headers?: { authorization?: string }
+  query: any
+}

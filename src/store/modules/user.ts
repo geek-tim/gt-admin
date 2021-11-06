@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
 import { useDbStore } from './db'
-import { loginApi, doLogout } from '/@/api/sys/user'
+import cookies from '/@/utils/cache/cookies'
+import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user'
 import { router } from '/@/router'
+import { PageEnum } from '/@/enums/pageEnum'
+import { isArray } from '/@/utils/is'
 
 export interface RoleInfo {
   roleName: string
@@ -48,6 +51,23 @@ export const useUserStore = defineStore({
     // Last fetch time
     lastUpdateTime: 0
   }),
+  getters: {
+    getToken(): string {
+      return this.token || getAuthCode()
+    },
+    async getUserInfo(): Promise<UserInfo | null> {
+      let userInfo = this.userInfo
+      if (!this.userInfo) {
+        const dbStore = useDbStore()
+        userInfo = (await dbStore.get({
+          dbName: 'sys',
+          path: 'userInfo',
+          user: true
+        })) as UserInfo
+      }
+      return userInfo
+    }
+  },
   actions: {
     async login(params) {
       try {
@@ -56,23 +76,21 @@ export const useUserStore = defineStore({
         const { token } = data
         // save token
         this.setToken(token)
-
         // router home
-        await router.replace('home')
-
-        const dbStore = useDbStore()
-        dbStore.set({
-          dbName: 'sys',
-          path: 'userInfo',
-          value: data,
-          user: true
-        })
+        await this.afterLoginAction()
         return data
       } catch (error) {
         return Promise.reject(error)
       }
     },
-    async logout(goLogin = false) {
+    async afterLoginAction() {
+      if (!this.getToken) return null
+      const userInfo = await this.getUserInfoAction()
+      // TODO 权限信息初始化
+      await router.replace(userInfo.homePath || PageEnum.BASE_HOME)
+      return userInfo
+    },
+    async logout() {
       if (this.token) {
         try {
           await doLogout()
@@ -81,8 +99,39 @@ export const useUserStore = defineStore({
         }
       }
     },
+    async getUserInfoAction(): Promise<UserInfo> {
+      const userInfo = await getUserInfo()
+      const { roles = [] } = userInfo
+      if (isArray(roles)) {
+        const roleList = roles.map((item) => item.value) as RoleEnum[]
+        this.setRoleList(roleList)
+      } else {
+        userInfo.roles = []
+        this.setRoleList([])
+      }
+      this.setUserInfo(userInfo)
+      return userInfo
+    },
     setToken(info: string | undefined) {
       this.token = info
+      // 这里暂时缓存成cookie ，根据自身业务修改
+      setAuthCode(info)
+    },
+    setUserInfo(info: UserInfo) {
+      this.userInfo = info
+      this.lastUpdateTime = new Date().getTime()
+
+      const dbStore = useDbStore()
+      dbStore.set({
+        dbName: 'sys',
+        path: 'userInfo',
+        value: info,
+        user: true
+      })
+    },
+    setRoleList(roleList: RoleEnum[]) {
+      this.roleList = roleList
+      // setAuthCache(ROLES_KEY, roleList);
     },
     resetState() {
       this.userInfo = null
@@ -92,3 +141,10 @@ export const useUserStore = defineStore({
     }
   }
 })
+
+function setAuthCode(code) {
+  cookies.set('token', code)
+}
+function getAuthCode() {
+  return cookies.get('token')
+}
