@@ -14,7 +14,7 @@ interface AppState {
   projectConfig: ProjectConfig | null
 }
 
-export const useLocaleStore = defineStore({
+export const useAppStore = defineStore({
   id: 'app',
   state: (): AppState => ({
     darkMode: '',

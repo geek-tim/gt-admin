@@ -27,7 +27,8 @@
     "vite-plugin-windicss": "^1.4.12",
     "vue": "^3.2.16",
     "vue-i18n": "9.1.7",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-types": "^4.1.1"
   },
   "gitHooks": {
     "commit-msg": "commitlint -E GIT_PARAMS"

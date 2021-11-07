@@ -2,6 +2,8 @@ import type { Router, RouteLocationNormalized } from 'vue-router'
 import nProgress from 'nprogress'
 import { PageEnum } from '/@/enums/pageEnum'
 import { useUserStore } from '/@/store/modules/user'
+import { usePermissionStoreWithOut } from '/@/store/modules/permission'
+
 export function setupRouterGuard(router: Router) {
   createPageGuard(router)
   createProgressGuard(router)
@@ -13,6 +15,8 @@ const whitePathList: PageEnum[] = [PageEnum.BASE_LOGIN]
 
 function createPermissionGuard(router) {
   const userStore = useUserStore()
+  const permissionStore = usePermissionStoreWithOut()
+
   router.beforeEach(async (to, from, next) => {
     const token = userStore.getToken
     // 白名单直接进入
@@ -51,6 +55,14 @@ function createPermissionGuard(router) {
       next(redirectData)
       return
     }
+
+    // 用户权限控制
+    console.log(permissionStore.getIsDynamicAddedRoute)
+    if (permissionStore.getIsDynamicAddedRoute) {
+      return next()
+    }
+    permissionStore.setDynamicAddedRoute(true)
+
     // 处理含有重定向参数的路由
     if (from.query.redirect) {
       const redirectPath = (from.query.redirect || to.path) as string
@@ -61,8 +73,6 @@ function createPermissionGuard(router) {
     }
     next()
   })
-
-  // 用户权限控制
 }
 
 function createPageGuard(router: Router) {
