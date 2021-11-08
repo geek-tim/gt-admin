@@ -1,9 +1,8 @@
 <script lang="tsx">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { CSSProperties, PropType, defineComponent } from 'vue'
 import { propTypes } from '/@/utils/propTypes'
 
-import { omit } from 'lodash-es'
 const pageHeaderProps = {
   title: propTypes.string,
   subTitle: propTypes.string,
@@ -22,7 +21,7 @@ const pageHeaderProps = {
 export default defineComponent({
   name: 'PageHeader',
   props: pageHeaderProps,
-  setup(props, { emit, slots }) {
+  setup(props, { slots }) {
     const prefixCls = ref('page-header')
     const renderTitle = () => {
       const title = props.title ?? slots.title?.() // 3??5 <==> 3?3:5

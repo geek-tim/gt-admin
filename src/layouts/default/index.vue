@@ -3,30 +3,7 @@
     <layout-header v-if="isShowFullHeader"></layout-header>
     <div :class="layoutClass">
       <!--siderbar-->
-      <div
-        style=""
-        class="layout-siderbar-placeholder"
-        :class="{
-          'layout-siderbar-placeholder--collapsed': isSiderBarCollapsed
-        }"
-        v-if="isShowSiderBar"
-      ></div>
-      <div
-        class="layout-siderbar layout-siderbar--fixed"
-        :class="{
-          'layout-siderbar--mix': isShowFullHeader,
-          'layout-siderbar--collapsed': isSiderBarCollapsed
-        }"
-        v-if="isShowSiderBar"
-      >
-        <div>
-          <AppLogo
-            class="layout-header-mix-logo"
-            theme="dark"
-            v-if="!isShowFullHeader"
-          />
-        </div>
-      </div>
+      <layout-sider></layout-sider>
       <!--main-->
       <div class="gt-layout">
         <layout-header
@@ -44,7 +21,7 @@
 import LayoutHeader from './layout/header/index.vue'
 import { unref, computed } from 'vue'
 import { useHeaderSetting } from '/@/hooks/setting/headerSetting'
-import AppLogo from './layout/logo.vue'
+import LayoutSider from './layout/sider/index.vue'
 
 const { getIsSidebarType, getIsTopMenuMix, getIsTopMenu, getIsMixSidebar } =
   useHeaderSetting()
@@ -57,10 +34,6 @@ const isShowSiderBar = computed(() => {
 
 const isShowFullHeader = computed(() => {
   return unref(getIsTopMenu) || unref(getIsTopMenuMix)
-})
-
-const isSiderBarCollapsed = computed(() => {
-  return unref(getIsMixSidebar)
 })
 
 const layoutClass = computed(() => {
