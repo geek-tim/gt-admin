@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
-import { store } from '/@/store'
 import { MenuTypeEnum } from '/@/enums/menuEnum'
-import { cloneDeep } from 'lodash-es'
 interface HeaderSetting {
   show: boolean
 }

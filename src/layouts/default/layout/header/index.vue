@@ -40,7 +40,6 @@ const isShowFullHeader = computed(() => {
 const getHeaderLogoClass = computed(() => {
   return ['layout-header-logo']
 })
-
 const color = '#000000d9'
 </script>
 <style lang="scss">
@@ -58,5 +57,11 @@ const color = '#000000d9'
   font-size: 1.2em;
   cursor: pointer;
   align-items: center;
+}
+
+.layout-header--light {
+  background-color: #fff !important;
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid #eee;
 }
 </style>

@@ -1,6 +1,59 @@
 $namespace: 'gt';
 $primary-color: #0960bd;
 
+$line-height-base: 1.66667;
 $darkMode: 'light';
 $white: #fff;
+$black: #000;
 $border-color-base: #eeeeee;
+$component-background: #151515;
+
+$text-color: rgba($black, 85%);
+$text-color-secondary: rgba($black, 45%);
+$text-color-inverse: $black;
+$icon-color-hover: rgba($black, 75%);
+$icon-color: inherit;
+
+// vertical margins
+$margin-lg: 16px; // containers
+$margin-md: 8px; // small containers and buttons
+$margin-sm: 8px; // Form controls and items
+$margin-xs: 4px; // small items
+$margin-xss: 0px; // more small
+
+// vertical paddings
+$padding-lg: 16px; // containers
+$padding-md: 8px; // small containers and buttons
+$padding-sm: 8px; // Form controls and items
+$padding-xs: 4px; // small items
+$padding-xss: 0px; // more small
+
+// height rules
+$height-base: 28px;
+$height-lg: 32px;
+$height-sm: 22px;
+
+//z-index
+// z-index list, order by `z-index`
+$zindex-badge: auto;
+$zindex-table-fixed: 2;
+$zindex-affix: 10;
+$zindex-back-top: 10;
+$zindex-picker-panel: 10;
+$zindex-popup-close: 10;
+$zindex-modal: 1000;
+$zindex-modal-mask: 1000;
+$zindex-message: 1010;
+$zindex-notification: 1010;
+$zindex-popover: 1030;
+$zindex-dropdown: 1050;
+$zindex-picker: 1050;
+$zindex-popoconfirm: 1060;
+$zindex-tooltip: 1070;
+$zindex-image: 1080;
+
+@mixin text-overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

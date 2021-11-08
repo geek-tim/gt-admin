@@ -173,4 +173,14 @@ const layoutClass = computed(() => {
     height: calc(100% - 48px);
   }
 }
+
+.layout-main {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  min-height: 0;
+  background: #f0f2f5;
+  // width: 100%;
+  // margin-left: 1px;
+}
 </style>
