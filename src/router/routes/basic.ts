@@ -17,7 +17,7 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
   meta: {
     title: 'ErrorPage',
     hideBreadcrumb: true,
-    hideMenu: true
+    hidden: true
   },
   children: [
     {
@@ -27,7 +27,7 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
       meta: {
         title: 'ErrorPage',
         hideBreadcrumb: true,
-        hideMenu: true
+        hidden: true
       }
     }
   ]

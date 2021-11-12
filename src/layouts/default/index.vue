@@ -1,16 +1,21 @@
 <template>
   <div class="gt-layout default-layout">
-    <layout-header v-if="isShowFullHeader"></layout-header>
+    <layout-header
+      v-if="isShowFullHeader"
+      class="layout-header--fixed"
+    ></layout-header>
     <div :class="layoutClass">
       <!--siderbar-->
       <layout-sider></layout-sider>
       <!--main-->
-      <div class="gt-layout">
+      <div class="layout-main">
+        <div style="height: 48px"></div>
         <layout-header
+          class="layout-multiple-header--fixed"
           v-if="!isShowFullHeader"
           :isShowFullHeader="isShowFullHeader"
         ></layout-header>
-        <div class="layout-main">
+        <div class="layout-content">
           <router-view> </router-view>
         </div>
       </div>
@@ -70,7 +75,6 @@ const layoutClass = computed(() => {
   display: flex;
   height: 48px;
   padding: 0;
-  margin-left: -1px;
   line-height: 48px;
   color: #fff;
   background-color: #fff;
@@ -155,5 +159,10 @@ const layoutClass = computed(() => {
   background: #f0f2f5;
   // width: 100%;
   // margin-left: 1px;
+}
+.layout-content {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 </style>

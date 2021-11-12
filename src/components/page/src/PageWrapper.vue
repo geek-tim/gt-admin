@@ -1,6 +1,11 @@
 <template>
   <div :class="getClass" ref="wrapperRef">
-    <PageHeader :title="title" class="page-header" ref="headerRef">
+    <PageHeader
+      :title="title"
+      :subTitle="subTitle"
+      class="page-header"
+      ref="headerRef"
+    >
       <template #default>
         <template v-if="content">
           {{ content }}
@@ -31,20 +36,10 @@
 </template>
 <script setup="props" lang="ts">
 import { propTypes } from '/@/utils/propTypes'
-import {
-  defineComponent,
-  watch,
-  computed,
-  ref,
-  unref,
-  defineProps,
-  useSlots,
-  useAttrs
-} from 'vue'
+import { computed, ref, unref, defineProps, useSlots, useAttrs } from 'vue'
 import PageFooter from './PageFooter.vue'
 import PageHeader from './PageHeader.vue'
 import { CSSProperties, PropType, provide } from 'vue'
-import { PageWrapperFixedHeightKey } from '../index'
 import { omit } from 'lodash-es'
 
 const slots = useSlots()
@@ -106,7 +101,6 @@ const getHeaderSlots = computed(() => {
     omit(slots, 'default', 'leftFooter', 'rightFooter', 'headerContent')
   )
 })
-console.log(getHeaderSlots.value)
 </script>
 <style lang="scss">
 $prefix-cls: 'page-wrapper';

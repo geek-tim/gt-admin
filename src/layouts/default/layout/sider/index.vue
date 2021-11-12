@@ -15,14 +15,12 @@
     }"
     v-if="isShowSiderBar"
   >
-    <div>
-      <AppLogo
-        class="layout-header-mix-logo"
-        theme="dark"
-        v-if="!isShowFullHeader"
-      />
-      <LayoutMenu />
-    </div>
+    <AppLogo
+      class="layout-header-mix-logo"
+      theme="dark"
+      v-if="!isShowFullHeader"
+    />
+    <LayoutMenu />
   </div>
 </template>
 <script setup lang="ts">
@@ -48,7 +46,7 @@ const isSiderBarCollapsed = computed(() => {
   return unref(getIsMixSidebar)
 })
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .layout-siderbar {
   .el-menu {
     border-right: none;

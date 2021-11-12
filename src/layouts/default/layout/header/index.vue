@@ -1,5 +1,5 @@
 <template>
-  <header class="layout-header layout-header--light" style="color: black">
+  <header class="layout-header layout-header--light" :style="getWrapStyle">
     <div class="layout-header-left">
       <AppLogo
         v-if="isShowFullHeader"
@@ -27,19 +27,37 @@
   </header>
 </template>
 <script setup lang="ts">
+import { unref, CSSProperties, computed } from 'vue'
 import { Setting, Search, FullScreen, Fold } from '@element-plus/icons'
 import SettingDrawer from '../../setting/SettingDrawer.vue'
-import { unref, computed } from 'vue'
 import { useHeaderSetting } from '/@/hooks/setting/headerSetting'
 import AppLogo from '../logo.vue'
 
-const { openDrawer, getIsTopMenu, getIsTopMenuMix } = useHeaderSetting()
+const {
+  openDrawer,
+  getIsTopMenu,
+  getIsTopMenuMix,
+  getIsSidebarType,
+  getIsMixSidebar
+} = useHeaderSetting()
 const isShowFullHeader = computed(() => {
   return unref(getIsTopMenu) || unref(getIsTopMenuMix)
 })
 const getHeaderLogoClass = computed(() => {
   return ['layout-header-logo']
 })
+
+const getWrapStyle = computed((): CSSProperties => {
+  const style: CSSProperties = {}
+  if (unref(getIsSidebarType)) {
+    style.width = 'calc(100% - 210px)'
+  }
+  if (unref(getIsMixSidebar)) {
+    style.width = 'calc(100% - 48px)'
+  }
+  return style
+})
+
 const color = '#000000d9'
 </script>
 <style lang="scss">
@@ -63,5 +81,18 @@ const color = '#000000d9'
   background-color: #fff !important;
   border-bottom: 1px solid #eee;
   border-left: 1px solid #eee;
+}
+.layout-header--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  width: 100%;
+}
+.layout-multiple-header--fixed {
+  position: fixed;
+  top: 0;
+  z-index: 505;
+  width: 100%;
 }
 </style>

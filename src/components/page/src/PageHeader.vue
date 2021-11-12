@@ -25,6 +25,7 @@ export default defineComponent({
     const prefixCls = ref('page-header')
     const renderTitle = () => {
       const title = props.title ?? slots.title?.() // 3??5 <==> 3?3:5
+      console.log(props)
       const subTitle = props.subTitle ?? slots.subTitle?.()
       const extra = props.extra ?? slots.extra?.()
       const headingPrefixCls = `${prefixCls.value}-heading`
@@ -41,15 +42,20 @@ export default defineComponent({
         </div>
       )
     }
-    // const renderChildren = (children: any) => {
-    //   return <div class={`${prefixCls.value}-content`}>{children}</div>
-    // }
-    // const children = [slots.default?.()]
+    const renderChildren = (children: any) => {
+      // TODO 递归
+      return <div class={`${prefixCls.value}-content`}>{children}</div>
+    }
+    const children = [slots.default?.()]
     console.log('slots.default', slots.default?.())
     const className = [prefixCls.value]
     return () => {
-      return <div class={className}>{renderTitle()}</div>
-      // {children.length ? renderChildren(children) : null}
+      return (
+        <div class={className}>
+          {renderTitle()}
+          {children.length ? renderChildren(children) : null}
+        </div>
+      )
     }
   }
 })
