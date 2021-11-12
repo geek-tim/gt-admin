@@ -1,4 +1,16 @@
+import type { LocaleType } from '/#/config'
+
 import { set } from 'lodash-es'
+
+export const loadLocalePool: LocaleType[] = []
+
+export function setHtmlPageLang(locale: LocaleType) {
+  document.querySelector('html')?.setAttribute('lang', locale)
+}
+
+export function setLoadLocalePool(cb: (loadLocalePool: LocaleType[]) => void) {
+  cb(loadLocalePool)
+}
 
 // 根据路径生成 i18n.t的key值
 export function genMessage(

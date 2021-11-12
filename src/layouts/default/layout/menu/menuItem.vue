@@ -2,9 +2,12 @@
 import { defineComponent, computed, PropType, unref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Menu as MenuType } from '/@/router/types'
+import { useI18n } from '/@/hooks/web/useI18n'
+
+const { t } = useI18n()
 
 export default defineComponent({
-  name: 'menuItem',
+  name: 'MenuItem',
   props: {
     item: {
       type: Object as PropType<MenuType>,
@@ -23,6 +26,10 @@ export default defineComponent({
 
     return () => {
       const { item } = props
+      const getI18nName = computed(() => {
+        const title = item.meta?.title as string
+        return t(title) || title
+      })
       if (!item.children?.length) {
         return (
           <el-menu-item
@@ -31,7 +38,7 @@ export default defineComponent({
             }}
           >
             {/* TODO 动态组件无法生成*/}
-            <span>{item.meta?.title}</span>
+            <span>{unref(getI18nName)}</span>
           </el-menu-item>
         )
       }
@@ -40,7 +47,7 @@ export default defineComponent({
           return (
             <div>
               {item.meta?.icon && <i class={item.meta?.icon}></i>}
-              <span>{item.meta?.title ?? '未定义菜单名称'}</span>
+              <span>{unref(getI18nName)}</span>
             </div>
           )
         }

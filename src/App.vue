@@ -1,28 +1,17 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-import { loginApi } from '/@/api/sys/user'
-import { useI18n } from '/@/hooks/web/useI18n'
-import { useLocaleStore } from '/@/store/modules/locale'
-import { ref } from 'vue'
 
-async function toLogin() {
-  var res = await loginApi({ username: 'geek-tim', password: '123456' })
-  console.log(res)
-}
-const { t } = useI18n()
-const localeStore = useLocaleStore()
-function toggleLocales() {
-  localeStore.setLocale({ locale: 'en' })
-  location.reload()
-}
+import { useLocale } from '/@/locales/useLocale'
 
-const text = ref(t('sys.login.loginButton'))
+// support Multi-language
+const { getAntdLocale } = useLocale()
 </script>
 
 <template>
-  <router-view></router-view>
+  <el-config-provider :locale="getAntdLocale">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
 
 <style>

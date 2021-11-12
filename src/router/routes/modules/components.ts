@@ -7,7 +7,6 @@ const meta = { auth: true }
 
 function _import(path, pre = '') {
   const examplePath = pre.replace(/-/g, '/')
-  console.log(examplePath)
   return import(`/@/views/${examplePath}${path}.vue`)
 }
 

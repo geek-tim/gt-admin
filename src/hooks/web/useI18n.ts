@@ -26,6 +26,7 @@ export function useI18n(namespace?: string): {
 } {
   const normalFn = {
     t: (key: string) => {
+      console.log('---', namespace, key)
       return getKey(namespace, key)
     }
   }
@@ -37,6 +38,8 @@ export function useI18n(namespace?: string): {
   const { t, ...methods } = i18n.global
 
   const tFn: I18nGlobalTranslation = (key: string, ...arg: any[]) => {
+    console.log(namespace, key)
+
     if (!key) return ''
     if (!key.includes('.') && !namespace) return ''
     return t(getKey(namespace, key), ...(arg as I18nTranslationRestParameters))
@@ -52,4 +55,4 @@ export function useI18n(namespace?: string): {
 
 // 为什么要编写此函数？
 // 主要用于配合vscode i18nn ally插件。此功能仅用于路由和菜单。请在其他地方使用useI18n
-// export const t = (key: string) => key ????
+export const $t = (key: string) => key //????
