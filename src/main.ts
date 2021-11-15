@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { setupProdMockServer } from '../mock/_mockProdServer'
-import { setupRouter } from '/@/router'
+import { setupRouter, router } from '/@/router'
 import { setupI18n } from '/@/locales/setupI18n'
 import { setupStore } from '/@/store'
-import { router } from '/@/router'
 import { setupRouterGuard } from '/@/router/guard' // 路由守卫
 import { registerGlobalComp } from '/@/components/registerGlobalComp'
+import { setupErrorHandle } from '/@/plugins/error-handle'
 
 // https://cn.windicss.org/integrations/vite.html
 import 'virtual:windi-base.css'
@@ -26,6 +26,9 @@ async function bootstrap() {
   // Configure routing
   setupRouter(app)
   setupRouterGuard(router)
+
+  // Configure global error handling
+  setupErrorHandle(app)
 
   setupProdMockServer()
   app.mount('#app')

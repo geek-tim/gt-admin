@@ -15,6 +15,7 @@
     "lib": ["esnext", "dom"],
     "types": ["element-plus/global"],
     "typeRoots": ["./node_modules/@types/", "./types"],
+    "skipLibCheck": true,
     "paths": {
       "/@/*": ["src/*"],
       "/#/*": ["types/*"]

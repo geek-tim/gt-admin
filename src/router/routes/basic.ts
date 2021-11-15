@@ -1,5 +1,6 @@
 import type { AppRouteRecordRaw } from '/@/router/types'
 import { PAGE_NOT_FOUND_NAME } from '/@/router/constant'
+import { $t } from '/@/hooks/web/useI18n'
 
 export const EXCEPTION_COMPONENT = () =>
   import('/@/views/sys/exception/Exception.vue')
@@ -28,6 +29,31 @@ export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
         title: 'ErrorPage',
         hideBreadcrumb: true,
         hidden: true
+      }
+    }
+  ]
+}
+
+export const ERROR_LOG_ROUTE: AppRouteRecordRaw = {
+  path: '/error-log',
+  name: 'ErrorLog',
+  component: LAYOUT,
+  redirect: '/error-log/list',
+  meta: {
+    title: 'ErrorLog',
+    hideBreadcrumb: true,
+    hideChildrenInMenu: true,
+    hidden: true
+  },
+  children: [
+    {
+      path: 'list',
+      name: 'ErrorLogList',
+      component: () => import('/@/views/sys/error-log/index.vue'),
+      meta: {
+        title: $t('routes.basic.errorLogList'),
+        hideBreadcrumb: true,
+        currentActiveMenu: '/error-log'
       }
     }
   ]
