@@ -25,7 +25,6 @@ export default defineComponent({
     const prefixCls = ref('page-header')
     const renderTitle = () => {
       const title = props.title ?? slots.title?.() // 3??5 <==> 3?3:5
-      console.log(props)
       const subTitle = props.subTitle ?? slots.subTitle?.()
       const extra = props.extra ?? slots.extra?.()
       const headingPrefixCls = `${prefixCls.value}-heading`
@@ -47,7 +46,6 @@ export default defineComponent({
       return <div class={`${prefixCls.value}-content`}>{children}</div>
     }
     const children = [slots.default?.()]
-    console.log('slots.default', slots.default?.())
     const className = [prefixCls.value]
     return () => {
       return (

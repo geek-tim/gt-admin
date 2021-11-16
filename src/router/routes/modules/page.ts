@@ -54,6 +54,18 @@ const pageRoutes: AppRouteRecordRaw = {
       }
     },
     // =============================from end=============================
+    // =============================table start===========================
+    {
+      path: 'table/basic',
+      name: `${pre}table-basic`,
+      component: _import('basic', pre + 'table-'),
+      meta: {
+        ...meta,
+        title: $t('routes.demo.table.basic')
+      }
+    },
+    // =============================table end=============================
+
     // =============================exception start=============================
 
     {

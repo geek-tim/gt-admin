@@ -28,9 +28,11 @@ import { unref, ref, computed } from 'vue'
 import { useHeaderSetting } from '/@/hooks/setting/headerSetting'
 import AppLogo from '../logo.vue'
 import LayoutMenu from '../menu/index.vue'
+import { useMenuSetting } from '/@/hooks/setting/menuSetting'
 
 const { getIsSidebarType, getIsTopMenuMix, getIsTopMenu, getIsMixSidebar } =
   useHeaderSetting()
+const { getMenuCollapsed } = useMenuSetting()
 
 const isShowSiderBar = computed(() => {
   return (
@@ -43,7 +45,7 @@ const isShowFullHeader = computed(() => {
 })
 
 const isSiderBarCollapsed = computed(() => {
-  return unref(getIsMixSidebar)
+  return unref(getIsMixSidebar) || unref(getMenuCollapsed)
 })
 </script>
 <style lang="scss">

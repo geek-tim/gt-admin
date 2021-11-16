@@ -157,12 +157,16 @@ const layoutClass = computed(() => {
   flex-direction: column;
   min-height: 0;
   background: #f0f2f5;
+  position: relative;
   // width: 100%;
   // margin-left: 1px;
 }
 .layout-content {
-  position: relative;
-  flex: 1 1 auto;
-  min-height: 0;
+  position: absolute;
+  top: 48px;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
 }
 </style>

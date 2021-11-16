@@ -6,7 +6,11 @@
         theme="light"
         :class="getHeaderLogoClass"
       />
-      <div class="layout-header-trigger">
+      <div
+        class="layout-header-trigger"
+        v-show="getShowFold"
+        @click="toggleCollapsed"
+      >
         <el-icon :size="20" :color="color"><fold /></el-icon>
       </div>
     </div>
@@ -31,6 +35,7 @@ import { unref, CSSProperties, computed } from 'vue'
 import { Setting, Search, FullScreen, Fold } from '@element-plus/icons'
 import SettingDrawer from '../../setting/SettingDrawer.vue'
 import { useHeaderSetting } from '/@/hooks/setting/headerSetting'
+import { useMenuSetting } from '/@/hooks/setting/menuSetting'
 import AppLogo from '../logo.vue'
 
 const {
@@ -40,8 +45,15 @@ const {
   getIsSidebarType,
   getIsMixSidebar
 } = useHeaderSetting()
+
+const { toggleCollapsed } = useMenuSetting()
+
 const isShowFullHeader = computed(() => {
   return unref(getIsTopMenu) || unref(getIsTopMenuMix)
+})
+
+const getShowFold = computed(() => {
+  return unref(getIsTopMenuMix) || unref(getIsSidebarType)
 })
 const getHeaderLogoClass = computed(() => {
   return ['layout-header-logo']

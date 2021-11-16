@@ -37,7 +37,7 @@ const getAppLogoClass = computed(() => [
   { 'collapsed-show-title': !unref(getMenuCollapsed) }
 ])
 const showTitle = computed(() => {
-  return !unref(getMenuCollapsed)
+  return !unref(getMenuCollapsed) || unref(getIsTopMenuMix)
 })
 </script>
 <style lang="scss">

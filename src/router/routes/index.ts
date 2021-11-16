@@ -3,6 +3,7 @@ import Login from '/@/views/sys/login//login.vue'
 import { PAGE_NOT_FOUND_ROUTE, ERROR_LOG_ROUTE } from '/@/router/routes/basic'
 import type { AppRouteRecordRaw } from '/@/router/types'
 import pageRoutes from './modules/page'
+import dashboard from './modules/dashboard'
 
 import { $t } from '/@/hooks/web/useI18n'
 
@@ -20,6 +21,7 @@ export const basicRoutes: AppRouteRecordRaw[] = [
     meta: { title: $t('routes.basic.login'), hidden: true }
   },
   pageRoutes,
+  dashboard,
   ERROR_LOG_ROUTE,
   PAGE_NOT_FOUND_ROUTE
 ]

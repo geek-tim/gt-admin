@@ -1,20 +1,7 @@
 import { defineStore } from 'pinia'
 import { MenuTypeEnum } from '/@/enums/menuEnum'
-interface HeaderSetting {
-  show: boolean
-}
-interface MenuSetting {
-  type: MenuTypeEnum
-  collapsed: boolean
-}
-
-// 项目基础设置
-export interface ProjectConfig {
-  themeColor: string
-  // 侧边抽屉——项目设置
-  headerSetting: HeaderSetting
-  menuSetting: MenuSetting
-}
+import type { ProjectConfig, MenuSetting, HeaderSetting } from '/#/config'
+import { deepMerge } from '/@/utils/index'
 
 interface AppState {
   darkMode: String
@@ -48,7 +35,7 @@ export const useAppStore = defineStore({
   },
   actions: {
     setProjectConfig(config: DeepPartial<ProjectConfig>) {
-      this.projectConfig = Object.assign(this.projectConfig, config)
+      this.projectConfig = deepMerge(this.projectConfig || {}, config)
     }
   }
 })
