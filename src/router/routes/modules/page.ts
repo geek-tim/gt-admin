@@ -22,7 +22,8 @@ const pageRoutes: AppRouteRecordRaw = {
   component: LAYOUT,
   meta: {
     ...meta,
-    title: 'demo'
+    icon: 'help-filled',
+    title: 'page'
   },
   children: ((pre) => [
     // =============================from end=============================

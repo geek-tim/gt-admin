@@ -76,7 +76,7 @@ const getContentStyle = computed((): CSSProperties => {
 
 const prefixCls = 'page-wrapper'
 const getClass = computed(() => {
-  return [prefixCls, attrs.class ?? {}]
+  return [prefixCls]
 })
 const getContentClass = computed(() => {
   const { contentBackground, contentClass } = props

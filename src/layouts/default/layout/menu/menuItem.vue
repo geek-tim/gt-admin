@@ -1,5 +1,12 @@
 <script lang="tsx">
-import { defineComponent, computed, PropType, unref } from 'vue'
+import {
+  defineComponent,
+  computed,
+  PropType,
+  unref,
+  h,
+  resolveComponent
+} from 'vue'
 import { useRouter } from 'vue-router'
 import type { Menu as MenuType } from '/@/router/types'
 import { useI18n } from '/@/hooks/web/useI18n'
@@ -37,7 +44,9 @@ export default defineComponent({
               navigation(item.path)
             }}
           >
-            {/* TODO 动态组件无法生成*/}
+            {item.meta?.icon && (
+              <el-icon>{h(resolveComponent(`i-${item.meta?.icon}`))}</el-icon>
+            )}
             <span>{unref(getI18nName)}</span>
           </el-menu-item>
         )
@@ -46,7 +55,9 @@ export default defineComponent({
         title: () => {
           return (
             <div>
-              {item.meta?.icon && <i class={item.meta?.icon}></i>}
+              {item.meta?.icon && (
+                <el-icon>{h(resolveComponent(`i-${item.meta?.icon}`))}</el-icon>
+              )}{' '}
               <span>{unref(getI18nName)}</span>
             </div>
           )

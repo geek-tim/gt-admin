@@ -10,7 +10,7 @@ const dashboard: AppRouteRecordRaw = {
   redirect: '/dashboard/analysis',
   meta: {
     orderNo: 10,
-    icon: 'ion:grid-outline',
+    icon: 'menu',
     title: $t('routes.dashboard.dashboard')
   },
   children: [
@@ -21,14 +21,6 @@ const dashboard: AppRouteRecordRaw = {
       meta: {
         // affix: true,
         title: $t('routes.dashboard.analysis')
-      }
-    },
-    {
-      path: 'workbench',
-      name: 'Workbench',
-      component: () => import('/@/views/dashboard/workbench/index.vue'),
-      meta: {
-        title: $t('routes.dashboard.workbench')
       }
     }
   ]

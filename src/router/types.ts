@@ -17,7 +17,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   fullPath?: string
 }
 
-export interface Menu {
+export   Menu {
   name: string
 
   icon?: string
